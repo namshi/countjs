@@ -91,21 +91,7 @@ var c = new Counter({}, ref)
 c.add('a', {qty: 2, force: true}) // true
 c.add('b', {qty: 3, force: true}) // true
 
-c.diff() // {a: 2, b: 3}
-```
-
-Diffs give you the new value for each item in the counter that is
-different from the reference, not the difference, in terms of quantity,
-between the old value and the new value:
-
-``` javascript
-var ref = {a: 1, b: 1}
-var c = new Counter({}, ref)
-
-c.add('a', {qty: 2, force: true})
-c.add('b')
-
-c.diff() // {a: 2} is the expected, rather than {a: 1}
+c.diff() // {a: {mine: 2, other: 1, diff: 1}, b: {mine: 3, other: 0, diff: 3}}
 ```
 
 ## Tests
