@@ -86,7 +86,11 @@ Counter.prototype.diff = function(counter){
     var mine = this.get(id)
 
     if (other !== mine) {
-      diff[id] = mine
+      diff[id] = {
+        mine: mine,
+        other: other,
+        diff: mine - other,
+      }
     }
   }
 
@@ -100,7 +104,11 @@ Counter.prototype.diff = function(counter){
     var mine = this.get(id)
 
     if (!mine && other) {
-      diff[id] = 0
+      diff[id] = {
+        mine: 0,
+        other: other,
+        diff:  -(other)
+      }
     }
   }
 

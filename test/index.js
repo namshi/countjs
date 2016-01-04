@@ -97,12 +97,16 @@ describe('countjs', function() {
 
       diff = c2.diff(c1)
 
-      assert.equal(1, diff.a)
-      assert.equal(0, diff.b)
-      assert.equal(0, diff.c)
-      assert.equal(1, diff.d)
-      assert.equal(0, diff.e)
-      assert.equal(2, diff.f)
+      assert.equal(1, diff.a.mine)
+      assert.equal(2, diff.a.other)
+      assert.equal(-1, diff.a.diff)
+      assert.equal(0, diff.b.mine)
+      assert.equal(0, diff.c.mine)
+      assert.equal(3, diff.c.other)
+      assert.equal(-3, diff.c.diff)
+      assert.equal(1, diff.d.mine)
+      assert.equal(0, diff.e.mine)
+      assert.equal(2, diff.f.mine)
       assert.equal(undefined, diff.g)
       assert.equal(undefined, diff.l)
     });
@@ -112,8 +116,8 @@ describe('countjs', function() {
       c.add('b', {qty: 2})
       diff = c.diff()
 
-      assert.equal(0, diff.a)
-      assert.equal(2, diff.b)
+      assert.equal(0, diff.a.mine)
+      assert.equal(2, diff.b.mine)
     });
 
     it('should throw an exception if no counter nor reference were provided', function (done) {
