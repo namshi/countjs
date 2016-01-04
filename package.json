@@ -1,13 +1,12 @@
 {
   "name": "countjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A small utility to count things",
   "main": "index.js",
   "directories": {
     "test": "./node_modules/mocha/bin/mocha"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "mocha": "^2.3.4"
   },
