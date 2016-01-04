@@ -90,6 +90,15 @@ describe('countjs', function() {
     });
   });
 
+  describe('get', function () {
+    it('should be able to give you the reference', function () {
+      var c = new Counter({}, {a: 1})
+      assert.equal(1, c.getReference('a'))
+      assert.equal(1, c.getReference().a)
+      assert.equal(0, c.getReference('b'))
+    });
+  });
+
   describe('diff', function () {
     it('should be able to give you a diff between the current counter and another counter', function () {
       var c1 = new Counter({a: 2, b: 2, c: 3, e: 2, f: 1, g: 0, h: 1, i: 0, l: 0})

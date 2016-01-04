@@ -56,6 +56,17 @@ Counter.prototype.get = function(id){
 }
 
 /**
+ * Same as get but rather than getting information
+ * from the current count it gets it from the reference.
+ *
+ * @param  {String} id
+ * @return {Mixed}
+ */
+Counter.prototype.getReference = function(id){
+  return this.reference.get(id)
+}
+
+/**
  * Generates a diff between the current counter
  * and a new one, or the reference if the current
  * counter was initialized with a reference.
