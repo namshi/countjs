@@ -107,4 +107,6 @@ Counter.prototype.diff = function(counter){
   return diff
 }
 
-module.exports = Counter
+if (typeof module !== 'undefined' && module !== null) {
+  module.exports = Counter
+}
