@@ -51,9 +51,9 @@ var c2 = new Counter({b: 1})
 
 c1.diff(c2) // {a: 1, b: 1}
 
-var c3 = new Counter({a:1, b:1})
+var c3 = new Counter({a: 1, b: 1})
 
-c3.diff(c2) // {a:1, b:0}
+c3.diff(c2) // {a: 1, b: 0}
 ```
 
 You can also use "references": if an item has qty `X`
