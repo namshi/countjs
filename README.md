@@ -94,6 +94,24 @@ c.add('b', {qty: 3, force: true}) // true
 c.diff() // {a: {mine: 2, other: 1, diff: 1}, b: {mine: 3, other: 0, diff: 3}}
 ```
 
+Last but not least, you can get a full comparison between counters:
+
+``` javascript
+var c1 = new Counter({a: 1, b: 1, d: 3})
+var c2 = new Counter({b: 2, c: 1, d: 3})
+
+comparison = c1.compare(c2)
+// {
+//  a: mine 1, other 0
+//  b: mine 1, other 2
+//  c: mine 0, other 1
+//  d: mine 3, other 3
+// }
+```
+
+`compare` is, basically, a `#diff()` that also includes same values
+between counters.
+
 ## Tests
 
 Just run `npm test` and welcome to [Greenland](https://travis-ci.org/namshi/countjs.svg?branch=master)!

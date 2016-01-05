@@ -141,4 +141,37 @@ describe('countjs', function() {
       }
     });
   });
+
+  describe('compare', function () {
+    it('should be able to give you a deep comparison', function () {
+      var c1 = new Counter({a: 1, b: 1, d: 3}, {b: 2, c: 1, d: 3})
+
+      comparison = c1.compare()
+
+      assert.equal(1, comparison.a.mine)
+      assert.equal(0, comparison.a.other)
+      assert.equal(1, comparison.b.mine)
+      assert.equal(2, comparison.b.other)
+      assert.equal(0, comparison.c.mine)
+      assert.equal(1, comparison.c.other)
+      assert.equal(3, comparison.d.mine)
+      assert.equal(3, comparison.d.other)
+    });
+
+    it('should be able to compatre 2 counters as well', function () {
+      var c1 = new Counter({a: 1, b: 1, d: 3})
+      var c2 = new Counter({b: 2, c: 1, d: 3})
+
+      comparison = c1.compare(c2)
+
+      assert.equal(1, comparison.a.mine)
+      assert.equal(0, comparison.a.other)
+      assert.equal(1, comparison.b.mine)
+      assert.equal(2, comparison.b.other)
+      assert.equal(0, comparison.c.mine)
+      assert.equal(1, comparison.c.other)
+      assert.equal(3, comparison.d.mine)
+      assert.equal(3, comparison.d.other)
+    });
+  });
 });

@@ -75,55 +75,73 @@ Counter.prototype.getReference = function(id){
  * @return {Object}
  * @throws {Error}
  */
-Counter.prototype.diff = function(counter){
-  counter = counter || this.reference
+ Counter.prototype.diff = function(counter, options){
+   /**
+    * Fixing arguments, making them optional
+    */
+   options = options || {}
 
-  if (!counter) {
-    var e = new Error('Unable to generate diff as no counter was passed to the #diff({...}) method')
-    e.code = "E_NO_COUNTER"
+   if (!(counter instanceof Counter)) {
+     if (typeof counter === 'object') {
+       options = counter
+     }
 
-    throw e
-  }
+     counter = this.reference
+   }
 
-  var diff = {}
+   if (!(counter instanceof Counter)) {
+     var e = new Error('Unable to generate diff as no counter was passed to the #diff({...}) method')
+     e.code = "E_NO_COUNTER"
 
-  /**
-   * For each property we have, if its different
-   * from the reference, we're gonna use
-   * our value as the diff.
-   */
-  for (var id in this.count) {
-    var other = counter.get(id)
-    var mine = this.get(id)
+     throw e
+   }
 
-    if (other !== mine) {
-      diff[id] = {
-        mine: mine,
-        other: other,
-        diff: mine - other,
-      }
-    }
-  }
+   var diff = {}
 
-  /**
-   * For each property in the reference,
-   * if we dont have it, it means it's
-   * zero.
-   */
-  for (var id in counter.get()) {
-    var other = counter.get(id)
-    var mine = this.get(id)
+   /**
+    * For each property we have, if its different
+    * from the reference, we're gonna use
+    * our value as the diff.
+    */
+   for (var id in this.count) {
+     var other = counter.get(id)
+     var mine = this.get(id)
 
-    if (!mine && other) {
-      diff[id] = {
-        mine: 0,
-        other: other,
-        diff:  -(other)
-      }
-    }
-  }
+     if (other !== mine || options.includeSame) {
+       diff[id] = {
+         mine: mine,
+         other: other,
+         diff: mine - other,
+       }
+     }
+   }
 
-  return diff
+   /**
+    * For each property in the reference,
+    * if we dont have it, it means it's
+    * zero.
+    */
+   for (var id in counter.get()) {
+     var other = counter.get(id)
+     var mine = this.get(id)
+
+     if (!mine && other || options.includeSame) {
+       diff[id] = {
+         mine: this.count[id] || 0,
+         other: other,
+         diff:  -(other)
+       }
+     }
+   }
+
+   return diff
+ }
+
+Counter.prototype.compare = function(counter, options) {
+  options = options || {}
+  options.includeSame = true
+
+  return this.diff(counter, options)
 }
 
 if (typeof module !== 'undefined' && module !== null) {
